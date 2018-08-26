@@ -2,15 +2,13 @@
 
 namespace Tests\Unit\Products;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Product;
+use Tests\TestCase;
 
 class ProductTest extends TestCase
 {
     /** @test */
-    public function test_it_uses_the_slug_for_the_route_key_name()
+    public function it_uses_the_slug_for_the_route_key_name()
     {
         $product = new Product();
 

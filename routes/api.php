@@ -12,3 +12,4 @@
 */
 
 $router->apiResource('categories', 'CategoriesController');
+$router->apiResource('products', 'ProductsController');
