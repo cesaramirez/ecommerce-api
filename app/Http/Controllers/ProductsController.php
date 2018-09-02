@@ -55,6 +55,7 @@ class ProductsController extends Controller
      */
     public function show(Product $product)
     {
+        return new ProductIndexResource($product);
     }
 
     /**
