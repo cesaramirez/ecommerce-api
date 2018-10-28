@@ -2,10 +2,9 @@
 
 namespace Tests\Unit\Models\Categories;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Category;
+use App\Models\Product;
+use Tests\TestCase;
 
 class CategoryTest extends TestCase
 {
@@ -37,12 +36,24 @@ class CategoryTest extends TestCase
     public function it_is_orderable_by_a_numbered_order()
     {
         $category = factory(Category::class)->create([
-            'order' => 2
+            'order' => 2,
         ]);
         $anotherCategory = factory(Category::class)->create([
-            'order' => 1
+            'order' => 1,
         ]);
 
         $this->assertEquals($anotherCategory->name, Category::ordered()->first()->name);
+    }
+
+    /** @test */
+    public function it_has_many_products()
+    {
+        $category = factory(Category::class)->create();
+
+        $category->products()->save(
+            factory(Product::class)->create()
+        );
+
+        $this->assertInstanceOf(Product::class, $category->products->first());
     }
 }
