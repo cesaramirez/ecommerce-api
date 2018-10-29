@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ProductIndexResource;
 use App\Models\Product;
+use App\Scopes\CategoryScope;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -30,7 +31,9 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = $this->products->paginate(10);
+        $products = $this->products
+                         ->withScopes($this->scopes())
+                         ->paginate(10);
 
         return ProductIndexResource::collection($products);
     }
@@ -79,5 +82,17 @@ class ProductsController extends Controller
      */
     public function destroy(Product $product)
     {
+    }
+
+    /**
+     * Array of scopes for query filter.
+     *
+     * @return array
+     */
+    public function scopes()
+    {
+        return [
+            'category' => new CategoryScope(),
+        ];
     }
 }
